@@ -2,11 +2,19 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');   //http请求日志
 var bodyParser = require('body-parser');   //渲染POST请求数据
+var mongoose = require('mongoose');
+var Character = require('./models/character');
 
 var swig = require('swig');
 var React = require('react');
 var Router = require('react-router');
 var routes = require('./app/routes');
+var config = require('./config');
+
+mongoose.connect(config.database);
+mongoose.connection.on('error', function() {
+  console.info("Error: Could not connect to MongoDB. Did you forget to run `mongod`?");
+});
 
 var app = express();
 
