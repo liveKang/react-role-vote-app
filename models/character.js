@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var characterSchema = new.mongoose.Schema({
+var characterSchema = new mongoose.Schema({
   characterId: { type: String, unique: true, index: true },
   name: String,
   race: String,
@@ -13,4 +13,4 @@ var characterSchema = new.mongoose.Schema({
   voted: { type: Boolean, default : false }
 });
 
-module.exports = mongoose,model('Character', characterSchema);
+module.exports = mongoose.model('Character', characterSchema);
