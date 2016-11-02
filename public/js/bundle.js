@@ -45,7 +45,7 @@ var AddCharacterActions = (function () {
 exports['default'] = _alt2['default'].createActions(AddCharacterActions);
 module.exports = exports['default'];
 
-},{"../alt":4}],2:[function(require,module,exports){
+},{"../alt":5}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -88,7 +88,65 @@ var FootActions = (function () {
 exports['default'] = _alt2['default'].createActions(FootActions);
 module.exports = exports['default'];
 
-},{"../alt":4}],3:[function(require,module,exports){
+},{"../alt":5}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _alt = require('../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var HomeActions = (function () {
+  function HomeActions() {
+    _classCallCheck(this, HomeActions);
+
+    this.generateActions('getTwoCharactersSuccess', 'getTwoCharactersFail', 'voteFail');
+  }
+
+  _createClass(HomeActions, [{
+    key: 'getTwoCharacters',
+    value: function getTwoCharacters() {
+      var _this = this;
+
+      $.ajax({ url: '/api/characters' }).done(function (data) {
+        _this.actions.getTwoCharactersSuccess(data);
+      }).fail(function (jqXhr) {
+        _this.actions.getTwoCharactersFail(jqXhr.responseJson.message);
+      });
+    }
+  }, {
+    key: 'vote',
+    value: function vote(winner, loser) {
+      var _this2 = this;
+
+      $.ajax({
+        type: 'PUT',
+        url: '/api/characters',
+        data: { winner: winner, loser: loser }
+      }).done(function () {
+        _this2.actions.getTwoCharacters();
+      }).fail(function (jqXhr) {
+        _this2.actions.voteFail(jqXhr.responseJson.message);
+      });
+    }
+  }]);
+
+  return HomeActions;
+})();
+
+exports['default'] = _alt2['default'].createActions(HomeActions);
+module.exports = exports['default'];
+
+},{"../alt":5}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -148,7 +206,7 @@ var NavbarActions = (function () {
 exports['default'] = _alt2['default'].createActions(NavbarActions);
 module.exports = exports['default'];
 
-},{"../alt":4,"underscore":"underscore"}],4:[function(require,module,exports){
+},{"../alt":5,"underscore":"underscore"}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -164,7 +222,7 @@ var _alt2 = _interopRequireDefault(_alt);
 exports['default'] = new _alt2['default']();
 module.exports = exports['default'];
 
-},{"alt":"alt"}],5:[function(require,module,exports){
+},{"alt":"alt"}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -328,7 +386,7 @@ var AddCharacter = (function (_React$Component) {
 exports['default'] = AddCharacter;
 module.exports = exports['default'];
 
-},{"../actions/AddCharacterActions":1,"../stores/AddCharacterStore":12,"react":"react"}],6:[function(require,module,exports){
+},{"../actions/AddCharacterActions":1,"../stores/AddCharacterStore":13,"react":"react"}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -387,7 +445,7 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"./Footer":7,"./Navbar":9,"react":"react","react-router":"react-router"}],7:[function(require,module,exports){
+},{"./Footer":8,"./Navbar":10,"react":"react","react-router":"react-router"}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -558,7 +616,7 @@ var Footer = (function (_React$Component) {
 exports['default'] = Footer;
 module.exports = exports['default'];
 
-},{"../actions/FooterActions":2,"../stores/FooterStore":13,"react":"react","react-router":"react-router"}],8:[function(require,module,exports){
+},{"../actions/FooterActions":2,"../stores/FooterStore":14,"react":"react","react-router":"react-router"}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -579,22 +637,125 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = require('react-router');
+
+var _storesHomeStore = require('../stores/HomeStore');
+
+var _storesHomeStore2 = _interopRequireDefault(_storesHomeStore);
+
+var _actionsHomeActions = require('../actions/HomeActions');
+
+var _actionsHomeActions2 = _interopRequireDefault(_actionsHomeActions);
+
+var _underscore = require('underscore');
+
 var Home = (function (_React$Component) {
   _inherits(Home, _React$Component);
 
-  function Home() {
+  function Home(props) {
     _classCallCheck(this, Home);
 
-    _get(Object.getPrototypeOf(Home.prototype), 'constructor', this).apply(this, arguments);
+    _get(Object.getPrototypeOf(Home.prototype), 'constructor', this).call(this, props);
+    this.state = _storesHomeStore2['default'].getState();
+    this.onChange = this.onChange.bind(this);
   }
 
   _createClass(Home, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      _storesHomeStore2['default'].listen(this.onChange);
+      _actionsHomeActions2['default'].getTwoCharacters();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _storesHomeStore2['default'].unlisten(this.onChange);
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(state) {
+      this.setState(state);
+    }
+  }, {
+    key: 'handleClick',
+    value: function handleClick(character) {
+      var winner = character.characterId;
+      var loser = (0, _underscore.first)((0, _underscore.without)(this.state.characters, (0, _underscore.findWhere)(this.state.characters, { characterId: winner }))).characterId;
+      _actionsHomeActions2['default'].vote(winner, loser);
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this = this;
+
+      var characterNodes = this.state.characters.map(function (character, index) {
+        return _react2['default'].createElement(
+          'div',
+          { key: character.characterId, className: index === 0 ? 'col-xs-6 col-sm-6 col-md-5 col-md-offset-1' : 'col-xs-6 col-sm-6 col-md-5' },
+          _react2['default'].createElement(
+            'div',
+            { className: 'thumbnail fadeInUp animated' },
+            _react2['default'].createElement('img', { onClick: _this.handleClick.bind(_this, character), src: 'http://image.eveonline.com/Character/' + character.characterId + '_512.jpg' }),
+            _react2['default'].createElement(
+              'div',
+              { className: 'caption text-center' },
+              _react2['default'].createElement(
+                'ul',
+                { className: 'list-inline' },
+                _react2['default'].createElement(
+                  'li',
+                  null,
+                  _react2['default'].createElement(
+                    'strong',
+                    null,
+                    'Race:'
+                  ),
+                  ' ',
+                  character.race
+                ),
+                _react2['default'].createElement(
+                  'li',
+                  null,
+                  _react2['default'].createElement(
+                    'strong',
+                    null,
+                    'Bloodline:'
+                  ),
+                  ' ',
+                  character.bloodline
+                )
+              ),
+              _react2['default'].createElement(
+                'h4',
+                null,
+                _react2['default'].createElement(
+                  _reactRouter.Link,
+                  { to: '/characters/' + character / characterId },
+                  _react2['default'].createElement(
+                    'strong',
+                    null,
+                    character.name
+                  )
+                )
+              )
+            )
+          )
+        );
+      });
+
       return _react2['default'].createElement(
         'div',
-        null,
-        'hello,Rain,hahahhahah'
+        { className: 'container' },
+        _react2['default'].createElement(
+          'h3',
+          { className: 'text-center' },
+          'Click on the portrait. Select your favorite.'
+        ),
+        _react2['default'].createElement(
+          'div',
+          { className: 'row' },
+          characterNodes
+        )
       );
     }
   }]);
@@ -605,7 +766,7 @@ var Home = (function (_React$Component) {
 exports['default'] = Home;
 module.exports = exports['default'];
 
-},{"react":"react"}],9:[function(require,module,exports){
+},{"../actions/HomeActions":3,"../stores/HomeStore":15,"react":"react","react-router":"react-router","underscore":"underscore"}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1365,7 +1526,7 @@ Navbar.contextTypes = {
 exports['default'] = Navbar;
 module.exports = exports['default'];
 
-},{"../actions/NavbarActions":3,"../stores/NavbarStore":14,"react":"react","react-router":"react-router"}],10:[function(require,module,exports){
+},{"../actions/NavbarActions":4,"../stores/NavbarStore":16,"react":"react","react-router":"react-router"}],11:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -1386,7 +1547,7 @@ _reactRouter2['default'].run(_routes2['default'], _reactRouter2['default'].Histo
   _react2['default'].render(_react2['default'].createElement(Handler, null), document.getElementById('app'));
 });
 
-},{"./routes":11,"react":"react","react-router":"react-router"}],11:[function(require,module,exports){
+},{"./routes":12,"react":"react","react-router":"react-router"}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1421,7 +1582,7 @@ exports['default'] = _react2['default'].createElement(
 );
 module.exports = exports['default'];
 
-},{"./components/AddCharacter":5,"./components/App":6,"./components/Home":8,"react":"react","react-router":"react-router"}],12:[function(require,module,exports){
+},{"./components/AddCharacter":6,"./components/App":7,"./components/Home":9,"react":"react","react-router":"react-router"}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1498,7 +1659,7 @@ var AddCharacterStore = (function () {
 exports['default'] = _alt2['default'].createStore(AddCharacterStore);
 module.exports = exports['default'];
 
-},{"../actions/AddCharacterActions":1,"../alt":4}],13:[function(require,module,exports){
+},{"../actions/AddCharacterActions":1,"../alt":5}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1546,7 +1707,59 @@ var FooterStore = (function () {
 exports['default'] = _alt2['default'].createStore(FooterStore);
 module.exports = exports['default'];
 
-},{"../actions/FooterActions":2,"../alt":4}],14:[function(require,module,exports){
+},{"../actions/FooterActions":2,"../alt":5}],15:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _alt = require('../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var _actionsHomeActions = require('../actions/HomeActions');
+
+var _actionsHomeActions2 = _interopRequireDefault(_actionsHomeActions);
+
+var HomeStore = (function () {
+  function HomeStore() {
+    _classCallCheck(this, HomeStore);
+
+    this.bindActions(_actionsHomeActions2['default']);
+    this.characters = [];
+  }
+
+  _createClass(HomeStore, [{
+    key: 'onGetTwoCharactersSuccess',
+    value: function onGetTwoCharactersSuccess(data) {
+      this.characters = data;
+    }
+  }, {
+    key: 'onGetTwoCharactersFail',
+    value: function onGetTwoCharactersFail(errorMessage) {
+      toastr.error(errorMessage);
+    }
+  }, {
+    key: 'onVoteFail',
+    value: function onVoteFail(errorMessage) {
+      toastr.error(errorMessage);
+    }
+  }]);
+
+  return HomeStore;
+})();
+
+exports['default'] = _alt2['default'].createStore(HomeStore);
+module.exports = exports['default'];
+
+},{"../actions/HomeActions":3,"../alt":5}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1624,4 +1837,4 @@ var NavbarStore = (function () {
 exports['default'] = _alt2['default'].createStore(NavbarStore);
 module.exports = exports['default'];
 
-},{"../actions/NavbarActions":3,"../alt":4}]},{},[10]);
+},{"../actions/NavbarActions":4,"../alt":5}]},{},[11]);

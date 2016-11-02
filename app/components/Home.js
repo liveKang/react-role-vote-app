@@ -7,7 +7,7 @@ import {first, without, findWhere} from 'underscore';
 class Home extends React.Component {
 
   constructor(props) {
-    suepr(props);
+    super(props);
     this.state = HomeStore.getState();
     this.onChange = this.onChange.bind(this);
   }
