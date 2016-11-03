@@ -33,5 +33,3 @@ React + Node.js + MongoDB + Socket.IO 角色投票应用
 * git merge origin/master //把远程下载下来的代码合并到本地仓库
 
 ###开发日志
-
-[教程](http://sahatyalkabov.com/create-a-character-voting-app-using-react-nodejs-mongodb-and-socketio/)
