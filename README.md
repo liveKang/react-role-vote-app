@@ -31,5 +31,3 @@ React + Node.js + MongoDB + Socket.IO 角色投票应用
 * git remote -v 	//查看远程仓库
 * git fetch origin master //从远程获取最新版本到本地
 * git merge origin/master //把远程下载下来的代码合并到本地仓库
-
-###开发日志

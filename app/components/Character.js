@@ -77,4 +77,3 @@ Character.contextTypes = {
 };
 
 export default Character;
-}
