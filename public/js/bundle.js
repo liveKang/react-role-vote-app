@@ -45,7 +45,7 @@ var AddCharacterActions = (function () {
 exports['default'] = _alt2['default'].createActions(AddCharacterActions);
 module.exports = exports['default'];
 
-},{"../alt":6}],2:[function(require,module,exports){
+},{"../alt":8}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -103,7 +103,66 @@ var CharacterActions = (function () {
 exports['default'] = _alt2['default'].createActions(CharacterActions);
 module.exports = exports['default'];
 
-},{"../alt":6}],3:[function(require,module,exports){
+},{"../alt":8}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _alt = require('../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var CharacterListActions = (function () {
+  function CharacterListActions() {
+    _classCallCheck(this, CharacterListActions);
+
+    this.generateActions('getCharactersSuccess', 'getCharactersFail');
+  }
+
+  _createClass(CharacterListActions, [{
+    key: 'getCharacters',
+    value: function getCharacters(payload) {
+      var _this = this;
+
+      var url = '/api/characters/top';
+      var params = {
+        race: payload.race,
+        bloodline: payload.bloodline
+      };
+
+      if (payload.category === 'female') {
+        params.gender = 'female';
+      } else if (payload.category === 'male') {
+        params.gender = 'male';
+      }
+
+      if (payload.category === 'shame') {
+        url = '/api/characters/shame';
+      }
+
+      $.ajax({ url: url, data: params }).done(function (data) {
+        _this.actions.getCharactersSuccess(data);
+      }).fail(function (jqXhr) {
+        _this.actions.getCharactersFail(jqXhr);
+      });
+    }
+  }]);
+
+  return CharacterListActions;
+})();
+
+exports['default'] = _alt2['default'].createActions(CharacterListActions);
+module.exports = exports['default'];
+
+},{"../alt":8}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -146,7 +205,7 @@ var FootActions = (function () {
 exports['default'] = _alt2['default'].createActions(FootActions);
 module.exports = exports['default'];
 
-},{"../alt":6}],4:[function(require,module,exports){
+},{"../alt":8}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -204,7 +263,7 @@ var HomeActions = (function () {
 exports['default'] = _alt2['default'].createActions(HomeActions);
 module.exports = exports['default'];
 
-},{"../alt":6}],5:[function(require,module,exports){
+},{"../alt":8}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -264,7 +323,50 @@ var NavbarActions = (function () {
 exports['default'] = _alt2['default'].createActions(NavbarActions);
 module.exports = exports['default'];
 
-},{"../alt":6,"underscore":"underscore"}],6:[function(require,module,exports){
+},{"../alt":8,"underscore":"underscore"}],7:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _alt = require('../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var StatsActions = (function () {
+  function StatsActions() {
+    _classCallCheck(this, StatsActions);
+
+    this.generateActions('getStatsSuccess', 'getStatsFail');
+  }
+
+  _createClass(StatsActions, [{
+    key: 'getStats',
+    value: function getStats() {
+      var _this = this;
+
+      $.ajax({ url: '/api/stats' }).done(function (data) {
+        _this.actions.getStatsSuccess(data);
+      }).fail(function (jqXhr) {
+        _this.actions.getStatsFail(jqXhr);
+      });
+    }
+  }]);
+
+  return StatsActions;
+})();
+
+exports['default'] = _alt2['default'].createActions(StatsActions);
+module.exports = exports['default'];
+
+},{"../alt":8}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -280,7 +382,7 @@ var _alt2 = _interopRequireDefault(_alt);
 exports['default'] = new _alt2['default']();
 module.exports = exports['default'];
 
-},{"alt":"alt"}],7:[function(require,module,exports){
+},{"alt":"alt"}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -444,7 +546,7 @@ var AddCharacter = (function (_React$Component) {
 exports['default'] = AddCharacter;
 module.exports = exports['default'];
 
-},{"../actions/AddCharacterActions":1,"../stores/AddCharacterStore":15,"react":"react"}],8:[function(require,module,exports){
+},{"../actions/AddCharacterActions":1,"../stores/AddCharacterStore":19,"react":"react"}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -503,7 +605,7 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"./Footer":10,"./Navbar":12,"react":"react","react-router":"react-router"}],9:[function(require,module,exports){
+},{"./Footer":13,"./Navbar":15,"react":"react","react-router":"react-router"}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -696,7 +798,175 @@ Character.contextTypes = {
 exports['default'] = Character;
 module.exports = exports['default'];
 
-},{"../actions/CharacterActions":2,"../stores/CharacterStore":16,"react":"react"}],10:[function(require,module,exports){
+},{"../actions/CharacterActions":2,"../stores/CharacterStore":21,"react":"react"}],12:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
+
+var _underscore = require('underscore');
+
+var _storesCharacterListStore = require('../stores/CharacterListStore');
+
+var _storesCharacterListStore2 = _interopRequireDefault(_storesCharacterListStore);
+
+var _actionsCharacterListActions = require('../actions/CharacterListActions');
+
+var _actionsCharacterListActions2 = _interopRequireDefault(_actionsCharacterListActions);
+
+var CharacterList = (function (_React$Component) {
+  _inherits(CharacterList, _React$Component);
+
+  function CharacterList(props) {
+    _classCallCheck(this, CharacterList);
+
+    _get(Object.getPrototypeOf(CharacterList.prototype), 'constructor', this).call(this, props);
+    this.state = _storesCharacterListStore2['default'].getState();
+    this.onChange = this.onChange.bind(this);
+  }
+
+  _createClass(CharacterList, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      _storesCharacterListStore2['default'].listen(this.onChange);
+      _actionsCharacterListActions2['default'].getCharacters(this.props.params);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _storesCharacterListStore2['default'].unlisten(this.onChange);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (!(0, _underscore.isEqual)(prevProps.params, this.props.params)) {
+        _actionsCharacterListActions2['default'].getCharacters(this.props.params);
+      }
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(state) {
+      this.setState(state);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var charactersList = this.state.characters.map(function (character, index) {
+        return _react2['default'].createElement(
+          'div',
+          { key: character.characterId, className: 'list-group-item animated fadeIn' },
+          _react2['default'].createElement(
+            'div',
+            { className: 'media' },
+            _react2['default'].createElement(
+              'span',
+              { className: 'position pull-left' },
+              index + 1
+            ),
+            _react2['default'].createElement(
+              'div',
+              { className: 'pull-left thumb-lg' },
+              _react2['default'].createElement(
+                _reactRouter.Link,
+                { to: '/characters/' + character.characterId },
+                _react2['default'].createElement('img', { className: 'media-object', src: 'http://image.eveonline.com/Character/' + character.characterId + '_128.jpg' })
+              )
+            ),
+            _react2['default'].createElement(
+              'div',
+              { className: 'media-body' },
+              _react2['default'].createElement(
+                'h4',
+                { className: 'media-heading' },
+                _react2['default'].createElement(
+                  _reactRouter.Link,
+                  { to: '/characters/' + character.characterId },
+                  character.name
+                )
+              ),
+              _react2['default'].createElement(
+                'small',
+                null,
+                'Race: ',
+                _react2['default'].createElement(
+                  'strong',
+                  null,
+                  character.race
+                )
+              ),
+              _react2['default'].createElement('br', null),
+              _react2['default'].createElement(
+                'small',
+                null,
+                'Bloodline: ',
+                _react2['default'].createElement(
+                  'strong',
+                  null,
+                  character.bloodline
+                )
+              ),
+              _react2['default'].createElement('br', null),
+              _react2['default'].createElement(
+                'small',
+                null,
+                'Wins: ',
+                _react2['default'].createElement(
+                  'strong',
+                  null,
+                  character.wins
+                ),
+                ' Losses: ',
+                _react2['default'].createElement(
+                  'strong',
+                  null,
+                  character.losses
+                )
+              )
+            )
+          )
+        );
+      });
+
+      return _react2['default'].createElement(
+        'div',
+        { className: 'container' },
+        _react2['default'].createElement(
+          'div',
+          { className: 'list-group' },
+          charactersList
+        )
+      );
+    }
+  }]);
+
+  return CharacterList;
+})(_react2['default'].Component);
+
+CharacterList.contextTypes = {
+  router: _react2['default'].PropTypes.func.isRequired
+};
+
+exports['default'] = CharacterList;
+module.exports = exports['default'];
+
+},{"../actions/CharacterListActions":3,"../stores/CharacterListStore":20,"react":"react","react-router":"react-router","underscore":"underscore"}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -867,7 +1137,7 @@ var Footer = (function (_React$Component) {
 exports['default'] = Footer;
 module.exports = exports['default'];
 
-},{"../actions/FooterActions":3,"../stores/FooterStore":17,"react":"react","react-router":"react-router"}],11:[function(require,module,exports){
+},{"../actions/FooterActions":4,"../stores/FooterStore":22,"react":"react","react-router":"react-router"}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1017,7 +1287,7 @@ var Home = (function (_React$Component) {
 exports['default'] = Home;
 module.exports = exports['default'];
 
-},{"../actions/HomeActions":4,"../stores/HomeStore":18,"react":"react","react-router":"react-router","underscore":"underscore"}],12:[function(require,module,exports){
+},{"../actions/HomeActions":5,"../stores/HomeStore":23,"react":"react","react-router":"react-router","underscore":"underscore"}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1777,7 +2047,250 @@ Navbar.contextTypes = {
 exports['default'] = Navbar;
 module.exports = exports['default'];
 
-},{"../actions/NavbarActions":5,"../stores/NavbarStore":19,"react":"react","react-router":"react-router"}],13:[function(require,module,exports){
+},{"../actions/NavbarActions":6,"../stores/NavbarStore":24,"react":"react","react-router":"react-router"}],16:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _storesStatsStore = require('../stores/StatsStore');
+
+var _storesStatsStore2 = _interopRequireDefault(_storesStatsStore);
+
+var _actionsStatsActions = require('../actions/StatsActions');
+
+var _actionsStatsActions2 = _interopRequireDefault(_actionsStatsActions);
+
+var Stats = (function (_React$Component) {
+  _inherits(Stats, _React$Component);
+
+  function Stats(props) {
+    _classCallCheck(this, Stats);
+
+    _get(Object.getPrototypeOf(Stats.prototype), 'constructor', this).call(this, props);
+    this.state = _storesStatsStore2['default'].getState();
+    this.onChange = this.onChange.bind(this);
+  }
+
+  _createClass(Stats, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      _storesStatsStore2['default'].listen(this.onChange);
+      _actionsStatsActions2['default'].getStats();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _storesStatsStore2['default'].unlisten(this.onChange);
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(state) {
+      this.setState(state);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2['default'].createElement(
+        'div',
+        { className: 'container' },
+        _react2['default'].createElement(
+          'div',
+          { className: 'panel panel-default' },
+          _react2['default'].createElement(
+            'table',
+            { className: 'table table-striped' },
+            _react2['default'].createElement(
+              'thead',
+              null,
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'th',
+                  { colSpan: '2' },
+                  'Stats'
+                )
+              )
+            ),
+            _react2['default'].createElement(
+              'tbody',
+              null,
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  'Leading race in Top 100'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.state.leadingRace.race,
+                  ' with ',
+                  this.state.leadingRace.count,
+                  ' characters'
+                )
+              ),
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  'Leading bloodline in Top 100'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.state.leadingBloodline.bloodline,
+                  ' with ',
+                  this.state.leadingBloodline.count,
+                  ' characters'
+                )
+              ),
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  'Amarr Characters'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.state.amarrCount
+                )
+              ),
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  'Caldari Characters'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.state.caldariCount
+                )
+              ),
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  'Gallente Characters'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.state.gallenteCount
+                )
+              ),
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  'Minmatar Characters'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.state.minmatarCount
+                )
+              ),
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  'Total votes cast'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.state.totalVotes
+                )
+              ),
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  'Female characters'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.state.femaleCount
+                )
+              ),
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  'Male characters'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.state.maleCount
+                )
+              ),
+              _react2['default'].createElement(
+                'tr',
+                null,
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  'Total number of characters'
+                ),
+                _react2['default'].createElement(
+                  'td',
+                  null,
+                  this.state.totalCount
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Stats;
+})(_react2['default'].Component);
+
+exports['default'] = Stats;
+module.exports = exports['default'];
+
+},{"../actions/StatsActions":7,"../stores/StatsStore":25,"react":"react"}],17:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -1798,7 +2311,7 @@ _reactRouter2['default'].run(_routes2['default'], _reactRouter2['default'].Histo
   _react2['default'].render(_react2['default'].createElement(Handler, null), document.getElementById('app'));
 });
 
-},{"./routes":14,"react":"react","react-router":"react-router"}],14:[function(require,module,exports){
+},{"./routes":18,"react":"react","react-router":"react-router"}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1829,16 +2342,35 @@ var _componentsCharacter = require('./components/Character');
 
 var _componentsCharacter2 = _interopRequireDefault(_componentsCharacter);
 
+var _componentsCharacterList = require('./components/CharacterList');
+
+var _componentsCharacterList2 = _interopRequireDefault(_componentsCharacterList);
+
+var _componentsStats = require('./components/Stats');
+
+var _componentsStats2 = _interopRequireDefault(_componentsStats);
+
 exports['default'] = _react2['default'].createElement(
   _reactRouter.Route,
   { handler: _componentsApp2['default'] },
   _react2['default'].createElement(_reactRouter.Route, { path: '/', handler: _componentsHome2['default'] }),
   _react2['default'].createElement(_reactRouter.Route, { path: '/add', handler: _componentsAddCharacter2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { path: '/character/:id', handler: _componentsCharacter2['default'] })
+  _react2['default'].createElement(_reactRouter.Route, { path: '/character/:id', handler: _componentsCharacter2['default'] }),
+  _react2['default'].createElement(_reactRouter.Route, { path: '/shame', handler: _componentsCharacterList2['default'] }),
+  _react2['default'].createElement(_reactRouter.Route, { path: '/stats', handler: _componentsStats2['default'] }),
+  _react2['default'].createElement(
+    _reactRouter.Route,
+    { path: ':category', handler: _componentsCharacterList2['default'] },
+    _react2['default'].createElement(
+      _reactRouter.Route,
+      { path: ':race', handler: _componentsCharacterList2['default'] },
+      _react2['default'].createElement(_reactRouter.Route, { path: ':bloodline', handler: _componentsCharacterList2['default'] })
+    )
+  )
 );
 module.exports = exports['default'];
 
-},{"./components/AddCharacter":7,"./components/App":8,"./components/Character":9,"./components/Home":11,"react":"react","react-router":"react-router"}],15:[function(require,module,exports){
+},{"./components/AddCharacter":9,"./components/App":10,"./components/Character":11,"./components/CharacterList":12,"./components/Home":14,"./components/Stats":16,"react":"react","react-router":"react-router"}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1915,7 +2447,54 @@ var AddCharacterStore = (function () {
 exports['default'] = _alt2['default'].createStore(AddCharacterStore);
 module.exports = exports['default'];
 
-},{"../actions/AddCharacterActions":1,"../alt":6}],16:[function(require,module,exports){
+},{"../actions/AddCharacterActions":1,"../alt":8}],20:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _alt = require('../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var _actionsCharacterListActions = require('../actions/CharacterListActions');
+
+var _actionsCharacterListActions2 = _interopRequireDefault(_actionsCharacterListActions);
+
+var CharacterListStore = (function () {
+  function CharacterListStore() {
+    _classCallCheck(this, CharacterListStore);
+
+    this.bindActions(_actionsCharacterListActions2['default']);
+    this.characters = [];
+  }
+
+  _createClass(CharacterListStore, [{
+    key: 'onGetCharactersSuccess',
+    value: function onGetCharactersSuccess(data) {
+      this.characters = data;
+    }
+  }, {
+    key: 'onGetCharactersFail',
+    value: function onGetCharactersFail(jqXhr) {
+      toastr.error(jqXhr.responseJSON.message);
+    }
+  }]);
+
+  return CharacterListStore;
+})();
+
+exports['default'] = _alt2['default'].createStore(CharacterListStore);
+module.exports = exports['default'];
+
+},{"../actions/CharacterListActions":3,"../alt":8}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1993,7 +2572,7 @@ var CharacterStore = (function () {
 exports['default'] = _alt2['default'].createStore(CharacterStore);
 module.exports = exports['default'];
 
-},{"../actions/CharacterActions":2,"../alt":6,"underscore":"underscore"}],17:[function(require,module,exports){
+},{"../actions/CharacterActions":2,"../alt":8,"underscore":"underscore"}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2041,7 +2620,7 @@ var FooterStore = (function () {
 exports['default'] = _alt2['default'].createStore(FooterStore);
 module.exports = exports['default'];
 
-},{"../actions/FooterActions":3,"../alt":6}],18:[function(require,module,exports){
+},{"../actions/FooterActions":4,"../alt":8}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2093,7 +2672,7 @@ var HomeStore = (function () {
 exports['default'] = _alt2['default'].createStore(HomeStore);
 module.exports = exports['default'];
 
-},{"../actions/HomeActions":4,"../alt":6}],19:[function(require,module,exports){
+},{"../actions/HomeActions":5,"../alt":8}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -2171,4 +2750,62 @@ var NavbarStore = (function () {
 exports['default'] = _alt2['default'].createStore(NavbarStore);
 module.exports = exports['default'];
 
-},{"../actions/NavbarActions":5,"../alt":6}]},{},[13]);
+},{"../actions/NavbarActions":6,"../alt":8}],25:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var _underscore = require('underscore');
+
+var _alt = require('../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var _actionsStatsActions = require('../actions/StatsActions');
+
+var _actionsStatsActions2 = _interopRequireDefault(_actionsStatsActions);
+
+var StatsStore = (function () {
+  function StatsStore() {
+    _classCallCheck(this, StatsStore);
+
+    this.bindActions(_actionsStatsActions2['default']);
+    this.leadingRace = { race: 'Unknown', count: 0 };
+    this.leadingBloodline = { bloodline: 'Unknown', count: 0 };
+    this.amarrCount = 0;
+    this.caldariCount = 0;
+    this.gallenteCount = 0;
+    this.minmatarCount = 0;
+    this.totalVotes = 0;
+    this.femaleCount = 0;
+    this.maleCount = 0;
+    this.totalCount = 0;
+  }
+
+  _createClass(StatsStore, [{
+    key: 'onGetStatsSuccess',
+    value: function onGetStatsSuccess(data) {
+      (0, _underscore.assign)(this, data);
+    }
+  }, {
+    key: 'onGetStatsFail',
+    value: function onGetStatsFail(jqXhr) {
+      toastr.error(jqXhr.responseJSON.message);
+    }
+  }]);
+
+  return StatsStore;
+})();
+
+exports['default'] = _alt2['default'].createStore(StatsStore);
+module.exports = exports['default'];
+
+},{"../actions/StatsActions":7,"../alt":8,"underscore":"underscore"}]},{},[17]);
