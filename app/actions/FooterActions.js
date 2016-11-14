@@ -1,15 +1,15 @@
 import alt from '../alt';
 
-class FootActions {
+class FooterActions {
   constructor() {
     this.generateActions(
       'getTopCharactersSuccess',
-      'getTopCharactersFail',
+      'getTopCharactersFail'
     );
   }
 
   getTopCharacters() {
-    $.ajax({url: '/api/characters/top'})
+    $.ajax({ url: '/api/characters/top' })
       .done((data) => {
         this.actions.getTopCharactersSuccess(data)
       })
@@ -17,7 +17,6 @@ class FootActions {
         this.actions.getTopCharactersFail(jqXhr)
       });
   }
-
 }
 
-export default alt.createActions(FootActions);
+export default alt.createActions(FooterActions);

@@ -25,9 +25,12 @@ React + Node.js + MongoDB + Socket.IO 角色投票应用
 * git push origin master
 * 输入用户名和密码
 
-
 ###git 更新代码到本地   一般步骤
 
 * git remote -v 	//查看远程仓库
 * git fetch origin master //从远程获取最新版本到本地
 * git merge origin/master //把远程下载下来的代码合并到本地仓库
+
+###启动mongodb 服务
+
+* 打开终端，输入cd Applications/mongodb/bin，回车后，再输入./mongod

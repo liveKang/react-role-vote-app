@@ -179,14 +179,14 @@ var _alt = require('../alt');
 
 var _alt2 = _interopRequireDefault(_alt);
 
-var FootActions = (function () {
-  function FootActions() {
-    _classCallCheck(this, FootActions);
+var FooterActions = (function () {
+  function FooterActions() {
+    _classCallCheck(this, FooterActions);
 
     this.generateActions('getTopCharactersSuccess', 'getTopCharactersFail');
   }
 
-  _createClass(FootActions, [{
+  _createClass(FooterActions, [{
     key: 'getTopCharacters',
     value: function getTopCharacters() {
       var _this = this;
@@ -199,10 +199,10 @@ var FootActions = (function () {
     }
   }]);
 
-  return FootActions;
+  return FooterActions;
 })();
 
-exports['default'] = _alt2['default'].createActions(FootActions);
+exports['default'] = _alt2['default'].createActions(FooterActions);
 module.exports = exports['default'];
 
 },{"../alt":8}],5:[function(require,module,exports){
@@ -1012,7 +1012,7 @@ var Footer = (function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _storesFooterStore2['default'].listen(this.onChange);
-      _storesFooterStore2['default'].getTopCharacters();
+      _actionsFooterActions2['default'].getTopCharacters();
     }
   }, {
     key: 'componentWillUnmount',
@@ -1033,8 +1033,8 @@ var Footer = (function (_React$Component) {
           { key: character.characterId },
           _react2['default'].createElement(
             _reactRouter.Link,
-            { to: '/characters' + character.characterId },
-            _react2['default'].createElement(Img, { className: 'thumb-md', src: 'http://image.eveonline.com/Character/' + character.characterId + '_128.jpg' })
+            { to: '/characters/' + character.characterId },
+            _react2['default'].createElement('img', { className: 'thumb-md', src: 'http://image.eveonline.com/Character/' + character.characterId + '_128.jpg' })
           )
         );
       });
@@ -1108,7 +1108,7 @@ var Footer = (function (_React$Component) {
             ),
             _react2['default'].createElement(
               'div',
-              { className: 'col-sm-7' },
+              { className: 'col-sm-7 hidden-xs' },
               _react2['default'].createElement(
                 'h3',
                 { className: 'lead' },
