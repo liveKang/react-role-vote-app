@@ -20,3 +20,6 @@ React + Node.js + MongoDB + Socket.IO 角色投票应用
 
 * 当运行gulp时，报错，一个很奇怪的错误。
 ![](http://p1.bpimg.com/567571/cec642fa04e10812.png)
+仔细看了问题，之后发现好像是bower_components下的一个css找不到。
+呃呃，这个问题，有点搞，原因是在家里的时候，网络状况不佳，上次安装`bower install`的时候，没有
+安装成功。出新害死人。。。
