@@ -18,7 +18,7 @@ var _ = require('underscore');
 mongoose.connect(config.database);
 mongoose.connection.on('error', function() {
   console.info("Error: Could not connect to MongoDB. Did you forget to run `mongod`?");
-  console.log(MongoDB 服务未开启);
+  console.log("MongoDB 服务未开启");
 });
 
 var app = express();

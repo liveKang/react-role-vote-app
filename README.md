@@ -23,3 +23,8 @@ React + Node.js + MongoDB + Socket.IO 角色投票应用
 仔细看了问题，之后发现好像是bower_components下的一个css找不到。
 呃呃，这个问题，有点搞，原因是在家里的时候，网络状况不佳，上次安装`bower install`的时候，没有
 安装成功。出新害死人。。。
+
+* 之前mac安装的mongoDB，一直运行不起来，提示`mongod commond is not found`
+后来通过查阅资料后发现是环境变量PATH没有添加。
+添加PATH后输入 `echo $PATH`发现并没有添加上来，重启下终端再次输入就ok了。
+最后再设置下数据库的路径 mongod --dbpath 路径（如mongod --dbpath /USERS/dalong/data/db/）
